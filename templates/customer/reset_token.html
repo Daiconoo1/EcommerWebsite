@@ -1,0 +1,28 @@
+ {% extends 'layout2.html' %} 
+{% from "_formhelpers.html" import render_field %}
+ {% block content%}
+   <div class='login'>
+   	<div>{%include '__base.html'%}</div>
+   	<div class='login_heading'>
+   		<span> Password Reset Request In</span>
+   	</div>
+   		 
+   		   		 
+		<form method='POST' class="labell" action="">
+			 
+				 
+				{{ form.hidden_tag() }}
+		  <div >
+		  		  	 
+		  	{{ render_field(form.password) }}
+		  	{{ render_field(form.confirm_password) }}
+		     
+		    </div>
+		  <p><input type='submit' value='Reset' class="serch1">
+		</form>
+		 
+   	</div>
+   	
+   </div>
+
+ {%endblock content%}

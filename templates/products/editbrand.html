@@ -1,0 +1,86 @@
+{% extends 'layout.html' %} 
+{% from "_formhelpers.html" import render_field %}
+ {% block content%}
+ 
+{%if editbrand%} 
+<div class='login'>
+   	 {%include '__base.html'%} 
+   	<div class='login_heading'>
+   		<span> Edit Brand</span>
+   	</div>	 
+   		  		 
+		<form method='POST' class="labell" action="">				 
+		  <div >	 
+		  	 <span class='Nbrand'>Brand:</span> <input type ='text' name='bran' class='brand' value='{{editbrand.name}}'>		     
+		    </div>
+		  <p><input type='submit' value='Save' class="serch1" >&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{url_for('avaiBrand')}}" class="btn btn-sm btn-danger" style="width: 6em;">Cancel</a>  
+		</form>
+	</div>
+	{%elif editcat%}
+	<div class='login'>
+   	 {%include '__base.html'%} 
+   	<div class='login_heading'>
+   		<span> Edit Category</span>
+   	</div>	 
+   		  		 
+		<form method='POST' class="labell" action="">				 
+		  <div >	 
+		  	 <span class='Nbrand'>Brand:</span> <input type ='text' name='cat' class='brand' value='{{editcat.name}}'>		     
+		    </div>
+		  <p><input type='submit' value='Save' class="serch1" >&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{url_for('avaiCat')}}" class="btn btn-sm btn-danger" style="width: 6em;">Cancel</a>  
+		</form>
+	</div>
+	 
+
+{%elif editproduct%}
+ <div class='signup'>
+   	
+
+   	<div class='signup_heading'>
+   		
+   		<span> Edit Product</span>
+   	</div>
+   		 
+   		   		 
+		<form method='POST' class="labell" action="" enctype="multipart/form-data">
+			 
+				 {%include '__base.html'%}
+				{{ form.hidden_tag() }}
+		  <div>
+		  		  	 
+		  	{{ render_field(form.name) }}  
+		    {{ render_field(form.price) }}
+		    {{ render_field(form.discount) }}
+		    <label for='brand' class="productbrandLabel">Add brand:</label>
+		    <select name='brand' id='brand' class='productbrand1'>
+		    	<option value="{{editproduct.brand_id}}"> {{editproduct.brand.name}}</option>
+		    	{% for brand in brand%}
+		    	<option value={{brand.id}} class="productbrandname">{{brand.name}}</option>
+		    	{%endfor%}
+		    </select>
+		    <p><label for='brand' class="productbrandLabel">Add Category:</label>
+		    <select name='category' id='category' class='productbrand2'>
+		    	<option value="{{editproduct.category_id}}"> {{editproduct.category.name}}</option>
+		    	{% for category in category%}
+		    	<option value={{category.id}} class="productbrandname">{{category.name}}</option>
+		    	{%endfor%}
+		    </select>
+		     
+		    {{ render_field(form.stock) }}
+		    {{ render_field(form.description) }}
+
+		  </div>
+		  <div class = 'productimage'>
+		  	{{ render_field(form.image_1) }}
+		    {{ render_field(form.image_2) }}
+		    {{ render_field(form.image_3) }}
+		  </div>
+		  <p><input type='submit' value='Save' class="serch1">&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{url_for('admin')}}" class="btn btn-sm btn-danger" style="width: 6em;">Cancel</a>
+		</form>
+		 
+   	</div>
+{%else%}
+<div>Page not found to back to main page</div>
+{%endif%}	 
+ {%endblock content%}}
+

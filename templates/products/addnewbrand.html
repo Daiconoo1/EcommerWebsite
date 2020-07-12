@@ -1,0 +1,39 @@
+{% extends 'layout.html' %} 
+{% from "_formhelpers.html" import render_field %}
+ {% block content%}
+ 
+{%if brands%}
+<div class='login'>
+   	 {%include '__base.html'%} 
+   	<div class='login_heading'>
+   		<span> Add Product Brand</span>
+   	</div>	 
+   		  		 
+		<form method='POST' class="labell" action="">				 
+		  <div >	 
+		  	 <span class='Nbrand'>Brand:</span> <input type ='text' name='bran' class='brand' pattern='[^"=0-9" "]+' required>		     
+		    </div>
+		  <p><input type='submit' value='Add Brand' class="serch1" style="padding: 10;">
+		  	&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{url_for('admin')}}" class="btn btn-sm btn-danger" style="width: 6em;">Cancel</a>
+		</form>
+	</div>
+		{%else%}
+		<div class='login'>
+		{%include '__base.html'%}
+		<div class='login_heading'>
+   		<span> Add Product Category</span>
+   	</div>	 
+   		  		 
+		<form method='POST' class="labell" action="">				 
+		  <div >	 
+		  	 <span class='Nbrand'>Category:</span> <input type ='text' name='cat' class='brand' pattern='[^"=0-9" "]+' required>		     
+		    </div>
+		  <p><input type='submit' value='Category' class="serch1">
+		  	&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{url_for('admin')}}" class="btn btn-sm btn-danger" style="width: 6em;">Cancel</a>
+		</form>	 
+		 
+   	</div>
+
+{%endif%}
+ {%endblock content%}}
+

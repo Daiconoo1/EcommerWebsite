@@ -1,0 +1,14 @@
+{%extends 'layout2.html'%}
+{%block content%}
+<div class="main404">
+	<div class="image404"> <img class="image" src="{{url_for('static', filename='images/errr.jpg')}}">  </div>
+	<div class="content404"> 
+		<div class="content404head"> Page not found</div>
+		<div class="content404body" > The page you requested is not available on the website. 
+			Please click on the link below to to continue shopping
+		</div>
+		<div> Click <a style="color: green;" href="{{url_for('index')}}#Available">here</a> to continue shopping</div>
+	</div>
+</div>
+
+{%endblock%}

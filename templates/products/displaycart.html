@@ -1,0 +1,49 @@
+{%extends 'layout2.html'%}
+
+{%block content%}
+<div class="carttable">
+	<table class="table">
+		<thead >
+			<th>No.</th>			
+			<th>Name</th>
+			<th>Image</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Discount</th>			 
+			<th>Subtotal</th>
+			<th>Update</th>
+			<th>Delete</th>
+		</thead>
+		<tbody>
+			{%for key,product in session['Shoppingcart'].items() %}
+			<tr>
+				<td>{{loop.index}}</td>	
+
+				<td>{{product.name}}</td>
+				<td><img src="{{url_for('static', filename='images/' + product.image)}}"  height="60px" width="60px" margin-right="-3em"></td>
+				<form action="{{url_for('updatecart', id=key)}}" method="POST">				
+				<td>&euro; &nbsp;{{product.price}}</td>
+				<td><input class="quantity" type="number" name="Quantity" value="{{product.Quantity}}" min="1" max="{{product.stock}}"></td>
+				{%if product.discount%}
+				<td>{{product.discount}}%</td>
+				{%else%}
+				<td></td>
+				{%endif%}			 
+				<td>{{((product.Quantity|int * product.price|float))-((product.Quantity|int * product.price|float)*product.discount/100)|float}}</td>				
+				<td><button class="cartbtnBrand" type="submit">Update</button></td>
+				</form>
+				<td><a href="{{url_for('deletecartItem', ids=key)}}" class="btn btn-sm btn-danger">Delete</a></td>
+			</tr>
+			{%endfor%}		
+			<tr class="secondtr">			 
+			<td colspan="4"><a href="{{url_for('get_order')}}" class="btn btn-sm btn-success ">Order now</a></td>
+			<td colspan="4"><h4><strong>Grand Total:&nbsp;&euro;{{grandtotal}}</strong></h4></td>
+			<td colspan="2"><a href="{{url_for('clearcart')}}#Available" class="btn btn-sm btn-danger ">Clear Cart</a></td>
+			</tr>
+		</tbody>
+
+	</table>
+</div>
+ 
+
+{%endblock%}

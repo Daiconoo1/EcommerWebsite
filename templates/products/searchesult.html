@@ -1,0 +1,87 @@
+ {% extends 'layout2.html' %}
+
+{% block content%}
+<div class='maincontent'>            
+         
+             <div class="searchbar">          
+    	   <form method="GET" action="{{ url_for('search') }}">
+            <input class='seerch' type="text" name="query" placeholder="What are you looking for ?"  />
+                 <button class='serchbtn' type="submit">Search</button></form>
+    	   </div>
+        
+
+        <div class= 'Rightbar'>             
+            <a  onclick="myFunction()" class='link'>                
+                      <span><i class="fa fa-bars" aria-hidden="true"></i>Brand  <i class="fa fa-angle-down"></i></span>           
+            </a>
+             
+            <div id='RightbarmyDropDown' class="linkDropdown">                           
+                {% for brand in brands%}
+                    <a href="{{url_for('getbrand', id=brand.id)}}"  class="productbrandname">{{brand.name}}</a>
+                {%endfor%}
+                
+            </div>
+
+        </div>
+
+         
+            </div>
+              
+            <div class= 'brandcontainers'>                       
+             
+            {% for i in results %}
+             
+    <div class="WholProduct">
+        <h4><span class="pName" > {{i.name}} {{i.brand.name}}</span>        
+        </h4> 
+        <form action="#" method="POST">
+        <input type="hidden" name="product_id" value="{{i.id}}">
+        <input type="hidden" name="Quantity" id="" value="1" min="1" max="{{i.stock}}">      
+        <button type="submit" class="cartbtnBrand">Add to cart</button>        
+        </form>
+        <div  class="ProductContainer">        
+            <div class="ProductImage">          
+                <a class="mr-2" href="{{url_for('detailedpage', id=i.id)}}"><img class="Pimage" src="{{url_for('static', filename='images/' + i.image_1)}}"/></a>          
+            </div>
+            <div class="pricee">
+                 <span class="discount"> - {% if i.discount > 0 %}
+                    {{i.discount}}
+                    {%endif%} % &nbsp; discount</span> <br>                
+                <span class="price" >&euro; &nbsp; {{i.price}}&nbsp; </span>
+            </div>
+        </div>
+   </div>    
+   {%endfor%}
+      
+</div> 
+
+
+    
+     
+</div>
+ 
+
+    
+    <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("RightbarmyDropDown").classList.toggle("show");
+}
+</script>
+
+{% endblock content%} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

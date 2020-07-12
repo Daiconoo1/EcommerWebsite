@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+ 
+
+
+
+
+
+
+
+  {%extends 'layout2.html'%}
+  {%block content%}
+  <head> {{mymap.js}}</head>
+  <div class="contactImage"><div class="contactName" style="padding: 2.2em 0 0 12em;" >Contact Us</div></div>
+  <div class="contactContent">
+  		<ul class="unordered" >
+  		 <li><p><span class="iconn"><i class="fa fa-phone" aria-hidden="true"></i></span></p><span class="list">Phone </span><p>+353899838294</p></li>
+  		<li><p><span class="iconn"><i class="fa fa-map-marker" aria-hidden="true"></i></span></p> <span class="list">Address</span><p>13 WhiteChurch Lawn Edmondstown Dublin </p></li> 
+  		<li><p><span class="iconn"><i class="fa fa-envelope" aria-hidden="true"></i></span></p> <span class="list">Email	</span><p> oladimejiibrahhim61@gmail.com</p> </li>  		
+  		</ul>
+  </div>
+  
+  <div class="map">	<span style="height: 200px; width:1000px;">  {{mymap.html}} </span></div>
+  {%endblock%}
+  

@@ -1,0 +1,52 @@
+{% extends 'layout.html' %} 
+{% from "_formhelpers.html" import render_field %}
+ {% block content%}
+
+ <div class='signup'>
+   	
+
+   	<div class='signup_heading'>
+   		
+   		<span> Add New Product</span>
+   	</div>
+   		 
+   		   		 
+		<form method='POST' class="labell" action="" enctype="multipart/form-data">
+			 
+				 {%include '__base.html'%}
+				{{ form.hidden_tag() }}
+		  <div>
+		  		  	 
+		  	{{ render_field(form.name) }}  
+		    {{ render_field(form.price) }}
+		    {{ render_field(form.discount) }}
+		    <label for='brand' class="productbrandLabel">Add brand:</label>
+		    <select name='brand' id='brand' class='productbrand1'>
+		    	<option value="{{editproduct.brand_id}}"> {{editproduct.brand.name}}</option>
+		    	{% for bran in brand%}
+		    	<option value={{brand.id}} class="productbrandname">{{bran.name}}</option>
+		    	{%endfor%}
+		    </select>
+		    <p><label for='brand' class="productbrandLabel">Add Category:</label>
+		    <select name='category' id='category' class='productbrand2'>
+		    	<option value="{{editproduct.category_id}}">{{editproduct.category.name}}</option>
+		    	{% for cate in category%}
+		    	<option value={{category.id}} class="productbrandname">{{cate.name}}</option>
+		    	{%endfor%}
+		    </select>
+		     
+		    {{ render_field(form.stock) }}
+		    {{ render_field(form.description) }}
+
+		  </div>
+		  <div class = 'productimage'>
+		  	<div class="col-md-4"><input type="file" name="image_1" class="form-control"></div>
+		  	<div class="col-md-4"><input type="file" name="image_2" class="form-control"></div>
+		  	<div class="col-md-4"><input type="file" name="image_3" class="form-control"></div>
+		   </div>
+		  <p><input type='submit' value='Add' class="serch1">
+		</form>
+		 
+   	</div>
+   	 
+ {%endblock content%}}

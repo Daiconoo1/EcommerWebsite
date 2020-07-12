@@ -1,0 +1,52 @@
+{%extends "layout2.html"%}
+{%block content%}
+
+<div class="carttable">
+	<div>{%include '__base.html'%}</div>
+	<div class="Customerdetail">
+		<span class="detail">Name:  &nbsp;{{customer.name|capitalize}}</span>
+		<span class="detail"><br>Email: &nbsp; {{customer.email}}</span>
+		<span class="detail"><br>Phone:  &nbsp;{{customer.mobile}}</span>
+		 <span class="detail">Address: &nbsp; {{customer.address}}</span>  &nbsp;  &nbsp;
+		 <span class="details">Invoice No:  &nbsp;{{order.invoice}} </span>
+		 <p>
+	</div>
+	<table class="table">
+		<thead >
+			<th>No.</th>			
+			<th>Name</th>			 
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Discount</th>			 
+			<th>Subtotal</th>
+			 
+		</thead>
+		<tbody>
+			{%for key,product in order.orders.items() %}
+			<tr>
+				<td>{{loop.index}}</td>	
+
+				<td>{{product.name}}</td>
+				 
+				 			
+				<td>&euro; &nbsp;{{product.price}}</td>
+				<td>{{product.Quantity}}</td>
+				{%if product.discount%}
+				<td>{{product.discount}}%</td>
+				{%else%}
+				<td></td>
+				{%endif%}			 
+				<td>{{((product.Quantity|int * product.price|float))-((product.Quantity|int * product.price|float)*product.discount/100)|float}}</td>				
+				 
+			</tr>
+			{%endfor%}		
+			<tr class="secondtr">
+			<td colspan="4"><a href="{{url_for('index')}}#Available" class="continue">Continue Shopping</a></td> 
+			<td colspan="4"><h4><strong>Grand Total:&nbsp;&euro;{{grandtotal}}</strong></h4></td>			 
+			</tr>
+		</tbody>
+
+	</table>
+</div>
+
+{%endblock%}

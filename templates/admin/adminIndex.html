@@ -1,0 +1,236 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<div class='maincontent'>            
+    <div class= 'Rightbar2'> 
+      		<a  onclick="myFunction()" class='link2'>                
+                 <span><i class="fa fa-bars" aria-hidden="true"></i>Links  <i class="fa fa-angle-down"></i></span>  
+             </a>
+             
+            <div id='RightbarmyDropDown' class="linkDropdown2">                           
+                <a href="{{url_for('addnewbrand')}}"  class="productbrandname">Add Brand</a>
+                <a href="{{url_for('addnewcat')}}"  class="productbrandname">Add Category</a>
+                <a href="{{url_for('addnewproduct')}}"  class="productbrandname">Add Product</a>
+                <a href="{{url_for('orderss')}}"  class="productbrandname">View Order</a>
+			</div>
+	</div>
+ 
+
+ <div class= 'brandcontainers2'>
+   	{%if product%}
+ 
+ <div class="carttable">
+	<table class="table" >
+		<div>{%include '__base.html'%}</div>
+		<thead >
+			<th>No.</th>			
+			<th>Name</th>
+			<th>Price &nbsp; (&euro;)</th>
+			<th>Discount</th>
+			<th>Stock</th>			 			 
+			<th>Brand</th>
+			<th>Category</th>
+			<th>Image</th>
+			<th>Edit</th>
+			<th>Delete</th>
+
+		</thead>
+		<tbody>
+			{%for product in product%}
+			<tr>
+				<td>{{loop.index}}</td>	
+
+				<td style="text-align: left;">{{product.name}}</td>
+				<td>{{product.price}}</td>
+				<td>{{product.discount}}% </td>
+				<td>{{product.stock}} </td>				 
+				<td>{{product.brand.name}}</td>
+				<td>{{product.category.name}} </td>
+				<td><img src="{{url_for('static', filename='images/' + product.image_1)}}"  height="50px" width="50px" margin-right="-3em"> </td>								
+				<td><a href="{{url_for('editProduct', id=product.id)}}" class="cartbtnBrand" type="submit">Edit</a></td>				
+				<form action="{{url_for('deleteproduct', id=product.id)}}", method="POST">				
+				<td><button type="submit" class="btn btn-sm btn-danger" style="width: 6em;">Delete</button></td>
+				</form>
+			</tr>	 		
+			 {%endfor%}
+		</tbody>
+
+	</table>
+</div>
+{%elif brand%}
+
+<div class="carttable">
+	<table class="table" >
+		<div>{%include '__base.html'%}</div>
+		<thead >
+			<th>No.</th>			
+			<th>Name</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</thead>
+		<tbody>
+			{%for brand in brand%}
+			<tr>
+				<td>{{loop.index}}</td>	
+
+				<td style="text-align: left;">{{brand.name}}</td>
+				<td><a href="{{url_for('editBrand', id=brand.id)}}" class="cartbtnBrand" style="text-decoration: none; padding: 10px;" >Edit</a></td>
+				<form action="{{url_for('deletebrand', id=brand.id)}}", method="POST">				
+				<td><button type="submit" class="btn btn-sm btn-danger" style="width: 6em;">Delete</button></td>
+				</form>
+			</tr>	 		
+			 {%endfor%}
+		</tbody>
+
+	</table>
+</div>
+{%elif category%} 
+
+<div class="carttable">
+	<table class="table" >
+		<div>{%include '__base.html'%}</div>
+		<thead >
+			<th>No.</th>			
+			<th>Name</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</thead>
+		<tbody>
+			{%for category in category%}
+			<tr>
+				<td>{{loop.index}}</td>	
+
+				<td style="text-align: left;">{{category.name}}</td>
+				<td>
+					<a href="{{url_for('editCat', id=category.id)}}" class="cartbtnBrand" style="text-decoration: none; padding: 10px;">Edit</a>
+					 				
+				<form action="{{url_for('deletecat', id=category.id)}}", method="POST">				
+				<td><button type="submit" class="btn btn-sm btn-danger" style="width: 6em;">Delete</button></td>
+				</form>
+			</tr>	 		
+			 {%endfor%}
+		</tbody>
+
+	</table>
+</div>
+{%elif Customer%}
+<div class="carttable">
+	<table class="table" style="background-color: white;" >
+		<div>{%include '__base.html'%}</div>
+		<thead >
+			<th>No.</th>
+			<th>Name</th>			
+			<th>Email</th>
+			<th>Address</th>
+			<th>Username</th>
+			<th>Mobile</th>
+			<th>Password</th>			
+			<th>Date</th>			 
+			 
+
+		</thead>
+		<tbody>
+			{%for customer in Customer%}
+			<tr>
+				<td>{{loop.index}}</td>	
+				<td style="text-align: left;">{{customer.name}}</td>
+				<td style="text-align: left;">{{customer.email}}</td>
+				<td style="text-align: left;">{{customer.address}}</td>
+				<td style="text-align: left;">{{customer.username}} </td>				 
+				<td>{{customer.mobile}}</td>
+				<td>{{customer.password}} </td>
+				<td>{{customer.date_created}}</td> 				
+				<form action="#", method="POST">				
+				 
+				</form>
+			</tr>	 		
+			 {%endfor%}
+		</tbody>
+
+	</table>
+</div>
+
+{%elif Orders%}
+<div class="carttable">
+	<table class="table" border='1' style="background-color: white;">
+		<div>{%include '__base.html'%}</div>
+		<thead >
+			<th>No.</th>
+			<th>Invoice</th>			
+			<th>Customer Details</th>
+			<th>Order Details</th>
+			<th>Date</th>
+			
+		</thead>
+		<tbody>
+			{%for order in Orders%}
+			<tr>
+				<td>{{loop.index}}</td>	
+				<td style="text-align: left;">{{order.invoice}}</td>
+				{%for customer in customer%}
+				{%if order.customer_id== customer.id%}
+				<td style="text-align: left;"> 
+					<span class="detail">Name:  &nbsp;{{customer.name|capitalize}}</span>
+					<span class="detail"><br>Email: &nbsp; {{customer.email}}</span>
+					<span class="detail"><br>Phone:  &nbsp;{{customer.mobile}}</span>
+		 			<br><span class="detail">Address: &nbsp; {{customer.address}}</span>
+				</td>
+				{%endif%}
+				{%endfor%}
+				
+				 <td>
+			 	<table style="margin-top: -0.2em;">
+			 		<thead>
+			 			<th>No.</th>
+			 			<th>Name</th>			 
+						<th>Price </th>
+						<th>Quantity</th>
+						<th>Discount</th>			 
+						<th>Subtotal</th>
+			 		</thead>
+			 		<tbody>
+			 			{%for key,product in order.orders.items() %}
+			 			<tr>
+			 				<td>{{loop.index}}</td>
+			 				<td>{{product.name}}</td>
+			 				<td >{{product.price}}</td>
+			 				<td>{{product.Quantity}}</td>
+			 				{%if product.discount%}
+			 				<td>{{product.discount}}%</td>
+			 				{%else%}
+			 				<td></td>
+			 				{%endif%}
+			 				<td>{{((product.Quantity|int * product.price|float))-((product.Quantity|int * product.price|float)*product.discount/100)|float}}</td>
+			 			</tr>
+			 			{%endfor%}	
+			 			 
+			 			
+			 		</tbody>
+			 	</table>	 	
+			</td>
+			<td style="text-align: left;">{{order.date_created}}</td> 
+			</tr>	 		
+			 {%endfor%}
+		</tbody>
+
+	</table>
+</div>
+
+
+{%else%}
+<div>Page not found</div>
+{%endif%}    
+    
+</div>    
+     
+</div>
+     
+  <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("RightbarmyDropDown").classList.toggle("show");
+}
+</script>
+
+{%endblock content%}
