@@ -26,7 +26,11 @@ def purchase ():
 		amount= amount,
 		currency='eur',
 		)
-	return redirect (url_for('get_order'))
+	return redirect (url_for('success'))
+
+@app.route('/success')
+def success():
+	return render_template ('customer/success.html')
 
 
 def ManageDicts(dict1, dict2):
