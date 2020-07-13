@@ -1,4 +1,4 @@
-{%extends 'layout2.html'%}
+ {%extends 'layout2.html'%}
 
 {%block content%}
 <div class="carttable">
@@ -36,7 +36,21 @@
 			</tr>
 			{%endfor%}		
 			<tr class="secondtr">			 
-			<td colspan="4"><a href="{{url_for('get_order')}}" class="btn btn-sm btn-success ">Order now</a></td>
+			<td colspan="4">
+				<form action="{{url_for('purchase')}}" method="POST">
+					{%set amount = grandtotal.replace('.','')%}
+					 <input type="hidden" name="amount" value="{{amount}}">					 
+					
+					<script
+						src="https://checkout.stripe.com/checkout.js"
+						class="stripe-button"
+						data-key="pk_test_51H4CaZFfakTwIKt98iWYkwNeUu2tnnHMx5QnmWc0IzZpVL32PDlJlQfUkqe97nA8UjXjfdWEgzZB64dVdZTc5lDV00J65Y8ff6"
+						data-name="Arc Boutique"
+						data-description="Product payment"
+						data-amount="{{amount}}"
+						data-currency="eur">
+					</script>
+				</form></td>
 			<td colspan="4"><h4><strong>Grand Total:&nbsp;&euro;{{grandtotal}}</strong></h4></td>
 			<td colspan="2"><a href="{{url_for('clearcart')}}#Available" class="btn btn-sm btn-danger ">Clear Cart</a></td>
 			</tr>
