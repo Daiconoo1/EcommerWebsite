@@ -1,4 +1,4 @@
-{%extends "layout2.html"%}
+ {%extends "layout2.html"%}
 {%block content%}
 
 <div class="carttable">
@@ -7,8 +7,10 @@
 		<span class="detail">Name:  &nbsp;{{customer.name|capitalize}}</span>
 		<span class="detail"><br>Email: &nbsp; {{customer.email}}</span>
 		<span class="detail"><br>Phone:  &nbsp;{{customer.mobile}}</span>
-		 <span class="detail">Address: &nbsp; {{customer.address}}</span>  &nbsp;  &nbsp;
+		 <span class="detail">Address: &nbsp; {{customer.address}}</span>
+		 <span class="detail"><br>Status:  &nbsp;{{order.status}}</span>  &nbsp;  &nbsp;
 		 <span class="details">Invoice No:  &nbsp;{{order.invoice}} </span>
+
 		 <p>
 	</div>
 	<table class="table">
