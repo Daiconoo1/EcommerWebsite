@@ -1,4 +1,4 @@
-from flask import render_template, session, url_for, redirect, request, flash, current_app
+ from flask import render_template, session, url_for, redirect, request, flash, current_app
 from flask_login import login_user, current_user, logout_user, login_required
 from store import app, db, images, search, bcrypt, login, mail
 from store.products.models import Brand, Category, AddProduct
@@ -95,6 +95,7 @@ def get_order():
 			db.session.add(order)
 			db.session.commit()
 			session.pop ('Shoppingcart')
+			flash (f'Thank you for patronizing us', 'success')
 			flash (f'Your order has been sent', 'success')			
 			return redirect (url_for('orders', invoice=invoice))			 
 		except Exception as e:
@@ -110,6 +111,8 @@ def orders(invoice):
 		customer_id =current_user.id		 
 		customer= CustomerRegister.query.filter_by(id=customer_id).first_or_404()
 		order = CustomerOrder.query.filter_by(customer_id=customer_id).order_by(CustomerOrder.id.desc()).first_or_404()
+		order.status="Paid"
+		db.session.commit()
 		for key,product in order.orders.items():
 			 
 			d= ((float(product['Quantity']) * float(product['price'])))-((float(product['Quantity']) * float(product['price'])* float(product['discount']/100)))
