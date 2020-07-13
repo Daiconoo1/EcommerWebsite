@@ -1,10 +1,32 @@
-import os  
+ import os  
 from flask import render_template, session, url_for, redirect, request, flash
 from store import  app, db
 from store.products.models import AddProduct
+from store. customer.models import CustomerOrder
 import simplejson
 from decimal import Decimal
- 
+from flask_login import current_user, login_required
+import stripe
+
+publishable_key="pk_test_51H4CaZFfakTwIKt98iWYkwNeUu2tnnHMx5QnmWc0IzZpVL32PDlJlQfUkqe97nA8UjXjfdWEgzZB64dVdZTc5lDV00J65Y8ff6"
+
+stripe.api_key= "sk_test_51H4CaZFfakTwIKt946RyK8a9MzpNYhTpVTeYHp9LGmJUwSERBj7dV8kAjB1CzcX8PXwaJHjfefFwD3BG7lrX0UX300Gauzc5Ld"
+
+@app.route('/purchase', methods=['POST'])
+@login_required
+def purchase ():	 
+	amount = request.form.get('amount')
+	customer = stripe.Customer.create(
+		email= request.form ['stripeEmail'],
+		source=request.form['stripeToken'],
+		)
+	charge = stripe.Charge.create(
+		customer=customer.id,
+		description='Arc Boutique',
+		amount= amount,
+		currency='eur',
+		)
+	return redirect (url_for('get_order'))
 
 
 def ManageDicts(dict1, dict2):
@@ -14,10 +36,6 @@ def ManageDicts(dict1, dict2):
 		return dict(list(dict1.items()) + list(dict2.items()))
 	return False
 		
-
-
-
-
 @app.route('/addcart', methods=['POST', 'GET'])
 def Addcart():	 
 	try:
@@ -48,6 +66,7 @@ def Addcart():
 		return redirect(request.referrer) 
 
 @app.route('/displaycart')
+@login_required
 def getCart():
 	if 'Shoppingcart' not in session or len(session['Shoppingcart']) <=0:
 		return redirect (url_for('index'))
@@ -55,8 +74,8 @@ def getCart():
 	subtotal=0	 
 	for key,product in session['Shoppingcart'].items():
 		 
-		d= ((float(product['Quantity']) * float(product['price'])))-((float(product['Quantity']) * float(product['price'])* float(product['discount']/100)))
-		grandtotal = float ('%.2f' % (grandtotal+d))
+		subtotal += ((float(product['Quantity']) * float(product['price'])))-((float(product['Quantity']) * float(product['price'])* float(product['discount']/100)))
+		grandtotal = ('%.2f' % (0+ float(subtotal)))
 			 
 	return render_template('products/displaycart.html', grandtotal=grandtotal)
 
